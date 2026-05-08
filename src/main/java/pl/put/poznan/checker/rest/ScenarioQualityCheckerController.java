@@ -13,6 +13,7 @@ public class ScenarioQualityCheckerController {
     @PostMapping("/api")
     public String api(@RequestBody ScenarioInfo scenario) {
         logger.debug("Title:{} System:{} Actors:{}", scenario.getTitle(), scenario.getSystemActor() ,scenario.getActors());
+        logger.debug("Steps:{}", scenario.getSteps());
         return "Title:" + scenario.getTitle() + " System:" + scenario.getSystemActor() + " Actors:" + scenario.getActors();
     }
 
