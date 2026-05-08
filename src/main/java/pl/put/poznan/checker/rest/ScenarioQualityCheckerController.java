@@ -2,7 +2,6 @@ package pl.put.poznan.checker.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-import pl.put.poznan.checker.logic.Scenario;
 import pl.put.poznan.checker.logic.ScenarioInfo;
 
 
