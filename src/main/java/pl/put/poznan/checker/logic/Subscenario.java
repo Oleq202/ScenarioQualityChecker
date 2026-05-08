@@ -5,6 +5,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/**
+ * Represents a Subscenario node in the scenario tree.
+ *
+ * <p>JSON mapping:
+ * <ul>
+ *   <li>scenario_type → defines logical subtype (IF, ELSE, FOR_EACH)</li>
+ *   <li>description → human-readable description</li>
+ *   <li>steps → nested child scenarios</li>
+ * </ul>
+ *
+ * <p>This class is deserialized from JSON using Jackson.
+ */
 public class Subscenario extends Scenario{
     public enum ScenarioType{
         IF, ELSE, FOR_EACH

@@ -5,6 +5,51 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/**
+ * Scenario tree model (Jackson deserialization format).
+ *
+ * <h2>JSON structure</h2>
+ * Each node contains:
+ * <ul>
+ *   <li><b>type</b> – determines the concrete node class (STEP or SUBSCENARIO)</li>
+ * </ul>
+ *
+ * <h3>Example JSON</h3>
+ * <pre>{@code
+    {
+        "title": "TestScenario1",
+        "systemActor": "System",
+        "actors": ["actor1", "actor2"],
+        "steps": [
+            {
+                "type" : "STEP",
+                "description" : "Step 1"
+            },
+            {
+                "type": "SUBSCENARIO",
+                "scenario_type" : "IF",
+                "description" : "if",
+                "steps": [
+                    {
+                        "type" : "STEP",
+                        "description" : "Step 2"
+                    },
+                    {
+                        "type" : "STEP",
+                        "description" : "Step 3"
+                    }
+                ]
+            }
+        ]
+    }
+ * }</pre>
+ *
+ * <h2>Polymorphism rules</h2>
+ * <ul>
+ *   <li>type=STEP → Step class</li>
+ *   <li>type=SUBSCENARIO → Subscenario class</li>
+ * </ul>
+ */
 public class ScenarioInfo {
     private String title;
     private String systemActor;
