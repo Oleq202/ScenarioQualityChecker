@@ -2,6 +2,14 @@ package pl.put.poznan.checker.logic;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import pl.put.poznan.checker.logic.ScenarioComposite.Scenario;
+import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioActorActionVisitor;
+import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioKeywordsCountVisitor;
+import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioStepNumberingVisitor;
+import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioStepsCountVisitor;
+import pl.put.poznan.checker.logic.ScenarioWalker.DefaultScenarioWalker;
+import pl.put.poznan.checker.logic.ScenarioWalker.DepthScenarioWalker;
+import pl.put.poznan.checker.logic.ScenarioWalker.ScenarioWalker;
 
 import java.util.List;
 
@@ -139,17 +147,19 @@ public class ScenarioInfo {
     }
 
     public int countSteps() {
+        ScenarioWalker walker = new DefaultScenarioWalker();
         ScenarioStepsCountVisitor countStepsVisitor = new ScenarioStepsCountVisitor();
         for(Scenario step: steps) {
-            step.accept(countStepsVisitor);
+            walker.walk(step, countStepsVisitor);
         }
         return countStepsVisitor.getStepCount();
     }
 
     public int[] countKeywords() {
+        ScenarioWalker walker = new DefaultScenarioWalker();
         ScenarioKeywordsCountVisitor keywordsCountVisitor = new ScenarioKeywordsCountVisitor();
         for(Scenario step: steps) {
-            step.accept(keywordsCountVisitor);
+            walker.walk(step, keywordsCountVisitor);
         }
         return new int[]{keywordsCountVisitor.getIfCount(), keywordsCountVisitor.getElseCount(), keywordsCountVisitor.getForEachCount()};
     }
@@ -157,11 +167,21 @@ public class ScenarioInfo {
     public List<String> getInvalidSteps() {
         List<String> allActors = actors;
         allActors.add(systemActor);
+        ScenarioWalker walker = new DefaultScenarioWalker();
         ScenarioActorActionVisitor actorActionVisitor = new ScenarioActorActionVisitor(allActors);
         for(Scenario step: steps) {
-            step.accept(actorActionVisitor);
+            walker.walk(step, actorActionVisitor);
         }
         return actorActionVisitor.getInvalidSteps();
+    }
+
+    public List<String> getNumberedSteps() {
+        DepthScenarioWalker walker = new DepthScenarioWalker();
+        ScenarioStepNumberingVisitor stepNumberingVisitor = new ScenarioStepNumberingVisitor(walker);
+        for(Scenario step: steps) {
+            walker.walk(step, stepNumberingVisitor);
+        }
+        return stepNumberingVisitor.getNumberedSteps();
     }
 
     public String getTitle() {

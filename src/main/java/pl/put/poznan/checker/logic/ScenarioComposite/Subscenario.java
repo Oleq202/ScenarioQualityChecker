@@ -1,12 +1,13 @@
-package pl.put.poznan.checker.logic;
+package pl.put.poznan.checker.logic.ScenarioComposite;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioVisitor;
 
 import java.util.List;
 
 /**
- * Represents a Subscenario node in the scenario tree.
+ * A composite, represents a Subscenario node in the scenario tree.
  *
  * <p>JSON mapping:
  * <ul>
@@ -17,7 +18,7 @@ import java.util.List;
  *
  * <p>This class is deserialized from JSON using Jackson.
  */
-public class Subscenario extends Scenario{
+public class Subscenario extends Scenario {
     public enum ScenarioType{
         IF, ELSE, FOR_EACH
     }
@@ -47,9 +48,6 @@ public class Subscenario extends Scenario{
     public void accept(ScenarioVisitor visitor)
     {
         visitor.visit(this);
-        for(Scenario step: steps) {
-            step.accept(visitor);
-        }
     }
 
     @Override

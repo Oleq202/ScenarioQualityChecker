@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.put.poznan.checker.logic.ScenarioInfo;
 
 import java.util.List;
-import java.util.Map;
-
 
 @RestController
 public class ScenarioQualityCheckerController {
@@ -90,6 +88,22 @@ public class ScenarioQualityCheckerController {
         ObjectNode json = mapper.createObjectNode();
         json.put("title",scenario.getTitle());
         json.putPOJO("invalid_steps", invalidSteps);
+
+        return json;
+    }
+
+    @PostMapping("/api/get_numbered_steps")
+    public ObjectNode getNumberedSteps(@RequestBody ScenarioInfo scenario) {
+        logger.debug("Title:{} System:{} Actors:{}", scenario.getTitle(), scenario.getSystemActor() ,scenario.getActors());
+
+        List<String> numberedSteps = scenario.getNumberedSteps();
+
+        logger.debug("Numbered steps:{}", numberedSteps);
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode json = mapper.createObjectNode();
+        json.put("title",scenario.getTitle());
+        json.putPOJO("numbered_steps", numberedSteps);
 
         return json;
     }

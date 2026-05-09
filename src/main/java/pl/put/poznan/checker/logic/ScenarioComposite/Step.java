@@ -1,12 +1,13 @@
-package pl.put.poznan.checker.logic;
+package pl.put.poznan.checker.logic.ScenarioComposite;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioVisitor;
 
 /**
  * Represents a Step leaf in the scenario tree.
  */
-public class Step extends Scenario{
+public class Step extends Scenario {
     @JsonCreator
     public Step(
             @JsonProperty("description") String description

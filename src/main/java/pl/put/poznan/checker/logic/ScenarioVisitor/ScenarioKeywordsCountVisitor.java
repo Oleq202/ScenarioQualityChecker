@@ -1,9 +1,12 @@
-package pl.put.poznan.checker.logic;
+package pl.put.poznan.checker.logic.ScenarioVisitor;
+
+import pl.put.poznan.checker.logic.ScenarioComposite.Step;
+import pl.put.poznan.checker.logic.ScenarioComposite.Subscenario;
 
 /**
  * A visitor, counts number of keywords in a scenario.
  */
-public class ScenarioKeywordsCountVisitor extends ScenarioVisitor{
+public class ScenarioKeywordsCountVisitor implements ScenarioVisitor {
     private int ifCount = 0;
     private int elseCount = 0;
     private int forEachCount = 0;

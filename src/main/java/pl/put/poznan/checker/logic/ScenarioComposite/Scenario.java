@@ -1,10 +1,11 @@
-package pl.put.poznan.checker.logic;
+package pl.put.poznan.checker.logic.ScenarioComposite;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioVisitor;
 
 /**
- * A composite, allows for tree-like structure of mapped scenario.
+ * A component, allows for tree-like structure of mapped scenario.
  */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
