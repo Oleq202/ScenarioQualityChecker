@@ -164,6 +164,14 @@ public class ScenarioInfo {
         return actorActionVisitor.getInvalidSteps();
     }
 
+    public List<String> getNumberedSteps() {
+        ScenarioStepNumberingVisitor stepNumberingVisitor = new ScenarioStepNumberingVisitor();
+        for(Scenario step: steps) {
+            step.accept(stepNumberingVisitor);
+        }
+        return stepNumberingVisitor.getNumberedSteps();
+    }
+
     public String getTitle() {
         return title;
     }

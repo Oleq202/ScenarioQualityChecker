@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 /**
- * Represents a Subscenario node in the scenario tree.
+ * A composite, represents a Subscenario node in the scenario tree.
  *
  * <p>JSON mapping:
  * <ul>
