@@ -173,13 +173,11 @@ public class ScenarioInfo {
 
     @JsonIgnore
     public List<String> getNumberedSteps() {
-//        TrackingScenarioWalker walker = new TrackingScenarioWalker();
-//        ScenarioStepNumberingVisitor stepNumberingVisitor = new ScenarioStepNumberingVisitor(walker);
-//        for(Scenario step: steps) {
-//            walker.walk(step, stepNumberingVisitor);
-//        }
-//        return stepNumberingVisitor.getNumberedSteps();
-        return new ArrayList<>();
+        ScenarioStepsNumberer stepsNumberer = new ScenarioStepsNumberer();
+        for(Scenario step: steps) {
+            stepsNumberer.traverse(step);
+        }
+        return stepsNumberer.getNumberedSteps();
     }
 
     public ScenarioInfo getCopy(int depth) {
