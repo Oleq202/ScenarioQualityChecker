@@ -48,9 +48,6 @@ public class Subscenario extends Scenario {
     public void accept(ScenarioVisitor visitor)
     {
         visitor.visit(this);
-        for(Scenario step: steps) {
-            step.accept(visitor);
-        }
     }
 
     @Override

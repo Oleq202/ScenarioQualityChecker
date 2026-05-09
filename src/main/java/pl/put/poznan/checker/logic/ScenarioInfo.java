@@ -7,6 +7,8 @@ import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioActorActionVisitor;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioKeywordsCountVisitor;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioStepNumberingVisitor;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioStepsCountVisitor;
+import pl.put.poznan.checker.logic.ScenarioWalker.DefaultScenarioWalker;
+import pl.put.poznan.checker.logic.ScenarioWalker.ScenarioWalker;
 
 import java.util.List;
 
@@ -145,16 +147,18 @@ public class ScenarioInfo {
 
     public int countSteps() {
         ScenarioStepsCountVisitor countStepsVisitor = new ScenarioStepsCountVisitor();
+        ScenarioWalker walker = new DefaultScenarioWalker();
         for(Scenario step: steps) {
-            step.accept(countStepsVisitor);
+            walker.walk(step, countStepsVisitor);
         }
         return countStepsVisitor.getStepCount();
     }
 
     public int[] countKeywords() {
         ScenarioKeywordsCountVisitor keywordsCountVisitor = new ScenarioKeywordsCountVisitor();
+        ScenarioWalker walker = new DefaultScenarioWalker();
         for(Scenario step: steps) {
-            step.accept(keywordsCountVisitor);
+            walker.walk(step, keywordsCountVisitor);
         }
         return new int[]{keywordsCountVisitor.getIfCount(), keywordsCountVisitor.getElseCount(), keywordsCountVisitor.getForEachCount()};
     }
@@ -163,16 +167,18 @@ public class ScenarioInfo {
         List<String> allActors = actors;
         allActors.add(systemActor);
         ScenarioActorActionVisitor actorActionVisitor = new ScenarioActorActionVisitor(allActors);
+        ScenarioWalker walker = new DefaultScenarioWalker();
         for(Scenario step: steps) {
-            step.accept(actorActionVisitor);
+            walker.walk(step, actorActionVisitor);
         }
         return actorActionVisitor.getInvalidSteps();
     }
 
     public List<String> getNumberedSteps() {
         ScenarioStepNumberingVisitor stepNumberingVisitor = new ScenarioStepNumberingVisitor();
+        ScenarioWalker walker = new DefaultScenarioWalker();
         for(Scenario step: steps) {
-            step.accept(stepNumberingVisitor);
+            walker.walk(step, stepNumberingVisitor);
         }
         return stepNumberingVisitor.getNumberedSteps();
     }
