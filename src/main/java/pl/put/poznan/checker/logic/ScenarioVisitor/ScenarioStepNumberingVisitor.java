@@ -1,10 +1,13 @@
-package pl.put.poznan.checker.logic;
+package pl.put.poznan.checker.logic.ScenarioVisitor;
+
+import pl.put.poznan.checker.logic.ScenarioComposite.Step;
+import pl.put.poznan.checker.logic.ScenarioComposite.Subscenario;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class ScenarioStepNumberingVisitor extends ScenarioVisitor{
+public class ScenarioStepNumberingVisitor extends ScenarioVisitor {
     private List<String> numberedSteps;
     private Stack<Integer> numbering;
 

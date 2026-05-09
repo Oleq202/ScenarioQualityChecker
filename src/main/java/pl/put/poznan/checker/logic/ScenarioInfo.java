@@ -2,6 +2,11 @@ package pl.put.poznan.checker.logic;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import pl.put.poznan.checker.logic.ScenarioComposite.Scenario;
+import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioActorActionVisitor;
+import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioKeywordsCountVisitor;
+import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioStepNumberingVisitor;
+import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioStepsCountVisitor;
 
 import java.util.List;
 

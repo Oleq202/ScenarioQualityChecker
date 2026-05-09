@@ -1,7 +1,8 @@
-package pl.put.poznan.checker.logic;
+package pl.put.poznan.checker.logic.ScenarioComposite;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioVisitor;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  *
  * <p>This class is deserialized from JSON using Jackson.
  */
-public class Subscenario extends Scenario{
+public class Subscenario extends Scenario {
     public enum ScenarioType{
         IF, ELSE, FOR_EACH
     }
