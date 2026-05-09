@@ -154,6 +154,16 @@ public class ScenarioInfo {
         return new int[]{keywordsCountVisitor.getIfCount(), keywordsCountVisitor.getElseCount(), keywordsCountVisitor.getForEachCount()};
     }
 
+    public List<String> getInvalidSteps() {
+        List<String> allActors = actors;
+        allActors.add(systemActor);
+        ScenarioActorActionVisitor actorActionVisitor = new ScenarioActorActionVisitor(allActors);
+        for(Scenario step: steps) {
+            step.accept(actorActionVisitor);
+        }
+        return actorActionVisitor.getInvalidSteps();
+    }
+
     public String getTitle() {
         return title;
     }

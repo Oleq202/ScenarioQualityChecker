@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import pl.put.poznan.checker.logic.ScenarioInfo;
 
+import java.util.List;
+import java.util.Map;
+
 
 @RestController
 public class ScenarioQualityCheckerController {
@@ -62,6 +65,31 @@ public class ScenarioQualityCheckerController {
         json.put("if_count:", counts[0]);
         json.put("else_count:", counts[1]);
         json.put("for_each_count:", counts[2]);
+
+        return json;
+    }
+
+    /**
+     * Takes a scenario in JSON form as an input and returns JSON with a list of steps not starting with an actor.
+     * @param scenario JSON of a scenario
+     * @return JSON:
+     * <pre>{@code {
+     *     "title": "ScenarioTitle",
+     *     "invalid_steps" : ["Step1", "Step2", etc..]
+     * }}</pre>
+     */
+    @PostMapping("/api/invalid_steps")
+    public ObjectNode getInvalidSteps(@RequestBody ScenarioInfo scenario) {
+        logger.debug("Title:{} System:{} Actors:{}", scenario.getTitle(), scenario.getSystemActor() ,scenario.getActors());
+
+        List<String> invalidSteps = scenario.getInvalidSteps();
+
+        logger.debug("Invalid steps:{}", invalidSteps);
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode json = mapper.createObjectNode();
+        json.put("title",scenario.getTitle());
+        json.putPOJO("invalid_steps", invalidSteps);
 
         return json;
     }
