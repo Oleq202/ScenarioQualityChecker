@@ -2,8 +2,7 @@ package pl.put.poznan.checker.logic.ScenarioVisitor;
 
 import pl.put.poznan.checker.logic.ScenarioComposite.Step;
 import pl.put.poznan.checker.logic.ScenarioComposite.Subscenario;
-import pl.put.poznan.checker.logic.ScenarioWalker.DepthScenarioWalker;
-import pl.put.poznan.checker.logic.ScenarioWalker.ScenarioWalker;
+import pl.put.poznan.checker.logic.ScenarioWalker.TrackingScenarioWalker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +12,9 @@ import java.util.List;
  */
 public class ScenarioStepNumberingVisitor implements ScenarioVisitor {
     private List<String> numberedSteps;
-    private DepthScenarioWalker walker;
+    private TrackingScenarioWalker walker;
 
-    public ScenarioStepNumberingVisitor(DepthScenarioWalker walker) {
+    public ScenarioStepNumberingVisitor(TrackingScenarioWalker walker) {
         numberedSteps = new ArrayList<>();
         this.walker = walker;
     }

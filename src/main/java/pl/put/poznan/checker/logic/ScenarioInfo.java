@@ -8,7 +8,7 @@ import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioKeywordsCountVisitor;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioStepNumberingVisitor;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioStepsCountVisitor;
 import pl.put.poznan.checker.logic.ScenarioWalker.DefaultScenarioWalker;
-import pl.put.poznan.checker.logic.ScenarioWalker.DepthScenarioWalker;
+import pl.put.poznan.checker.logic.ScenarioWalker.TrackingScenarioWalker;
 import pl.put.poznan.checker.logic.ScenarioWalker.ScenarioWalker;
 
 import java.util.List;
@@ -176,7 +176,7 @@ public class ScenarioInfo {
     }
 
     public List<String> getNumberedSteps() {
-        DepthScenarioWalker walker = new DepthScenarioWalker();
+        TrackingScenarioWalker walker = new TrackingScenarioWalker();
         ScenarioStepNumberingVisitor stepNumberingVisitor = new ScenarioStepNumberingVisitor(walker);
         for(Scenario step: steps) {
             walker.walk(step, stepNumberingVisitor);

@@ -2,7 +2,6 @@ package pl.put.poznan.checker.logic.ScenarioWalker;
 
 import pl.put.poznan.checker.logic.ScenarioComposite.Scenario;
 import pl.put.poznan.checker.logic.ScenarioComposite.Subscenario;
-import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioStepNumberingVisitor;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioVisitor;
 
 import java.util.Stack;
@@ -10,10 +9,10 @@ import java.util.Stack;
 /**
  * Allows for position tracking in a scenario structure.
  */
-public class DepthScenarioWalker extends ScenarioWalker{
+public class TrackingScenarioWalker extends ScenarioWalker{
     private Stack<Integer> scenarioPosition;
 
-    public DepthScenarioWalker() {
+    public TrackingScenarioWalker() {
         scenarioPosition = new Stack<>();
         scenarioPosition.add(1);
     }
