@@ -138,6 +138,16 @@ public class ScenarioInfo {
         this.steps = steps;
     }
 
+    public int countSteps()
+    {
+        ScenarioStepsCountVisitor countStepsVisitor = new ScenarioStepsCountVisitor();
+        for(Scenario step: steps)
+        {
+            step.accept(countStepsVisitor);
+        }
+        return countStepsVisitor.getStepCount();
+    }
+
     public String getTitle() {
         return title;
     }
