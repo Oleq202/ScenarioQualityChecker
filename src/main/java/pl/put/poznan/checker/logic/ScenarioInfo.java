@@ -44,6 +44,75 @@ import java.util.List;
     }
  * }</pre>
  *
+ *  * <h3>Example JSON from README</h3>
+ *  * <pre>{@code
+    {
+        "title": "Book addition",
+        "actors": ["Librarian"],
+        "systemActor": "System",
+        "steps": [
+            {
+                "type" : "STEP",
+                "description" : "Librarian selects options to add a new book item"
+            },
+            {
+                "type" : "STEP",
+                "description" : "A form is displayed."
+            },
+            {
+                "type" : "STEP",
+                "description" : "Librarian provides the details of the book."
+            },
+            {
+                "type" : "SUBSCENARIO",
+                "scenario_type" : "IF",
+                "description" : "Librarian wishes to add copies of the book",
+                "steps": [
+                    {
+                        "type" : "STEP",
+                        "description" : "Librarian chooses to define instances"
+                    },
+                    {
+                        "type" : "STEP",
+                        "description" : "System presents defined instances"
+                    },
+                    {
+                        "type" : "SUBSCENARIO",
+                        "scenario_type" : "FOR_EACH",
+                        "description" : "instance:",
+                        "steps": [
+                            {
+                                "type" : "STEP",
+                                "description" : "Librarian chooses to add an instance"
+                            },
+                            {
+                                "type" : "STEP",
+                                "description" : "System prompts to enter the instance details"
+                            },
+                            {
+                                "type" : "STEP",
+                                "description" : "Librarian enters the instance details and confirms them."
+                            },
+                            {
+                                "type" : "STEP",
+                                "description" : "System informs about the correct addition of an instance and presents the updated list of instances."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type" : "STEP",
+                "description" : "Librarian confirms book addition."
+            },
+            {
+                "type" : "STEP",
+                "description" : "System informs about the correct addition of the book."
+            }
+        ]
+    }
+ *  * }</pre>
+ *
  * <h2>Polymorphism rules</h2>
  * <ul>
  *   <li>type=STEP → Step class</li>
