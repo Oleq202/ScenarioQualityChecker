@@ -116,7 +116,6 @@ public class ScenarioQualityCheckerController {
      *      6. System informs about the correct addition of the book.
      * }</pre>
      */
-
     @PostMapping("/api/get_numbered_steps")
     public String getNumberedSteps(@RequestBody ScenarioInfo scenario) {
         logger.debug("Title:{} System:{} Actors:{}", scenario.getTitle(), scenario.getSystemActor() ,scenario.getActors());

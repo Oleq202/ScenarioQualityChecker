@@ -8,6 +8,9 @@ import pl.put.poznan.checker.logic.ScenarioWalker.ScenarioWalker;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Numbers each step according to its position in a scenario.
+ */
 public class ScenarioStepNumberingVisitor implements ScenarioVisitor {
     private List<String> numberedSteps;
     private DepthScenarioWalker walker;

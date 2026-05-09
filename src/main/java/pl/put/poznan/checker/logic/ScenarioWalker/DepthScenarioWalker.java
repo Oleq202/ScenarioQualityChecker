@@ -7,6 +7,9 @@ import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioVisitor;
 
 import java.util.Stack;
 
+/**
+ * Allows for position tracking in a scenario structure.
+ */
 public class DepthScenarioWalker extends ScenarioWalker{
     private Stack<Integer> scenarioPosition;
 
