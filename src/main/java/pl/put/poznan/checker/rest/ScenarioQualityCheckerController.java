@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.put.poznan.checker.logic.ScenarioInfo;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 @RestController
 public class ScenarioQualityCheckerController {
@@ -92,20 +93,48 @@ public class ScenarioQualityCheckerController {
         return json;
     }
 
+    /**
+     * Takes a scenario in JSON form as an input and returns scenario in a text format with numbered steps.
+     * @param scenario JSON of a scenario
+     * @return TXT:
+     * <pre>{@code
+     *      Title: Book addition
+     *      Actors: Librarian
+     *      System actor: System
+     *      1. Librarian selects options to add a new book item
+     *      2. A form is displayed.
+     *      3. Librarian provides the details of the book.
+     *      4. IF: Librarian wishes to add copies of the book
+     *      4.1. Librarian chooses to define instances
+     *      4.2. System presents defined instances
+     *      4.3. FOR_EACH: instance:
+     *      4.3.1. Librarian chooses to add an instance
+     *      4.3.2. System prompts to enter the instance details
+     *      4.3.3. Librarian enters the instance details and confirms them.
+     *      4.3.4. System informs about the correct addition of an instance and presents the updated list of instances.
+     *      5. Librarian confirms book addition.
+     *      6. System informs about the correct addition of the book.
+     * }</pre>
+     */
+
     @PostMapping("/api/get_numbered_steps")
-    public ObjectNode getNumberedSteps(@RequestBody ScenarioInfo scenario) {
+    public String getNumberedSteps(@RequestBody ScenarioInfo scenario) {
         logger.debug("Title:{} System:{} Actors:{}", scenario.getTitle(), scenario.getSystemActor() ,scenario.getActors());
 
         List<String> numberedSteps = scenario.getNumberedSteps();
 
         logger.debug("Numbered steps:{}", numberedSteps);
 
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode json = mapper.createObjectNode();
-        json.put("title",scenario.getTitle());
-        json.putPOJO("numbered_steps", numberedSteps);
+        StringJoiner response = new StringJoiner("\n");
+        response.add("Title: " + scenario.getTitle());
+        String actors = scenario.getActors().toString();
+        response.add("Actors: " + actors.substring(1, actors.length() - 1));
+        response.add("System actor: " + scenario.getSystemActor());
+        for(String line: numberedSteps) {
+            response.add(line);
+        }
 
-        return json;
+        return response.toString();
     }
 
 }

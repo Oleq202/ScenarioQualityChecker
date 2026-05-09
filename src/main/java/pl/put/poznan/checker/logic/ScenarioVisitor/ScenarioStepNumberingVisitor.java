@@ -7,7 +7,6 @@ import pl.put.poznan.checker.logic.ScenarioWalker.ScenarioWalker;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 public class ScenarioStepNumberingVisitor implements ScenarioVisitor {
     private List<String> numberedSteps;
@@ -31,8 +30,6 @@ public class ScenarioStepNumberingVisitor implements ScenarioVisitor {
         line = walker.getFormatedPosition() + " " + subscenario.getScenarioType().name() + ": " + line;
         numberedSteps.add(line);
     }
-
-
 
     public List<String> getNumberedSteps() {
         return numberedSteps;
