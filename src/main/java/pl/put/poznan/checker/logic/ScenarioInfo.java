@@ -138,14 +138,20 @@ public class ScenarioInfo {
         this.steps = steps;
     }
 
-    public int countSteps()
-    {
+    public int countSteps() {
         ScenarioStepsCountVisitor countStepsVisitor = new ScenarioStepsCountVisitor();
-        for(Scenario step: steps)
-        {
+        for(Scenario step: steps) {
             step.accept(countStepsVisitor);
         }
         return countStepsVisitor.getStepCount();
+    }
+
+    public int[] countKeywords() {
+        ScenarioKeywordsCountVisitor keywordsCountVisitor = new ScenarioKeywordsCountVisitor();
+        for(Scenario step: steps) {
+            step.accept(keywordsCountVisitor);
+        }
+        return new int[]{keywordsCountVisitor.getIfCount(), keywordsCountVisitor.getElseCount(), keywordsCountVisitor.getForEachCount()};
     }
 
     public String getTitle() {

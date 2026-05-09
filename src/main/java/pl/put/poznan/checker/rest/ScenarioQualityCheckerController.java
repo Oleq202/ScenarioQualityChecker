@@ -13,17 +13,19 @@ public class ScenarioQualityCheckerController {
     private static final Logger logger = LoggerFactory.getLogger(ScenarioQualityCheckerController.class);
 
     /**
-     * Takes scenario in JSON form as an input and returns JSON with number of steps as an output.
+     * Takes a scenario in JSON form as an input and returns JSON with number of steps as an output.
      * @param scenario JSON of a scenario
-     * @return JSON: {@code {
+     * @return JSON:
+     * <pre>{@code {
      *  "title": "ScenarioTitle",
      *  "steps_count": "No. of steps"
-     * }}
+     * }} </pre>
      */
-    @PostMapping("/api/count")
-    public ObjectNode api(@RequestBody ScenarioInfo scenario) {
+    @PostMapping("/api/steps_count")
+    public ObjectNode stepsCount(@RequestBody ScenarioInfo scenario) {
         logger.debug("Title:{} System:{} Actors:{}", scenario.getTitle(), scenario.getSystemActor() ,scenario.getActors());
         //logger.debug("Steps:{}", scenario.getSteps());
+
         int stepCount = scenario.countSteps();
         logger.debug("No. of steps:{}", stepCount);
 
@@ -31,6 +33,35 @@ public class ScenarioQualityCheckerController {
         ObjectNode json = mapper.createObjectNode();
         json.put("title",scenario.getTitle());
         json.put("steps_count:", stepCount);
+
+        return json;
+    }
+
+    /**
+     * Takes a scenario in JSON form as an input and returns JSON with number of keywords.
+     * @param scenario JSON of a scenario
+     * @return JSON:
+     * <pre>{@code {
+     *     "title": "ScenarioTitle",
+     *     "if_count": "No. of IF statements",
+     *     "else_count": "No. of ELSE statements",
+     *     "for_each_count": "No. of FOR EACH statements"
+     * }}</pre>
+     */
+    @PostMapping("/api/keywords_count")
+    public ObjectNode keywordsCount(@RequestBody ScenarioInfo scenario) {
+        logger.debug("Title:{} System:{} Actors:{}", scenario.getTitle(), scenario.getSystemActor() ,scenario.getActors());
+
+        int[] counts = scenario.countKeywords();
+
+        logger.debug("if_count:{} else_count:{} for_each_count:{}", counts[0], counts[1], counts[2]);
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode json = mapper.createObjectNode();
+        json.put("title",scenario.getTitle());
+        json.put("if_count:", counts[0]);
+        json.put("else_count:", counts[1]);
+        json.put("for_each_count:", counts[2]);
 
         return json;
     }

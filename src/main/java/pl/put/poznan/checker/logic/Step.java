@@ -15,8 +15,7 @@ public class Step extends Scenario{
     }
 
     @Override
-    public void accept(ScenarioVisitor visitor)
-    {
+    public void accept(ScenarioVisitor visitor) {
         visitor.visit(this);
     }
 
