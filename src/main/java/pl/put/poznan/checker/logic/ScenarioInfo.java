@@ -1,6 +1,7 @@
 package pl.put.poznan.checker.logic;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.put.poznan.checker.logic.ScenarioComposite.Scenario;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioActorActionVisitor;
@@ -8,9 +9,10 @@ import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioKeywordsCountVisitor;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioStepNumberingVisitor;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioStepsCountVisitor;
 import pl.put.poznan.checker.logic.ScenarioWalker.DefaultScenarioWalker;
-import pl.put.poznan.checker.logic.ScenarioWalker.DepthScenarioWalker;
+import pl.put.poznan.checker.logic.ScenarioWalker.TrackingScenarioWalker;
 import pl.put.poznan.checker.logic.ScenarioWalker.ScenarioWalker;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -164,6 +166,7 @@ public class ScenarioInfo {
         return new int[]{keywordsCountVisitor.getIfCount(), keywordsCountVisitor.getElseCount(), keywordsCountVisitor.getForEachCount()};
     }
 
+    @JsonIgnore
     public List<String> getInvalidSteps() {
         List<String> allActors = actors;
         allActors.add(systemActor);
@@ -175,13 +178,24 @@ public class ScenarioInfo {
         return actorActionVisitor.getInvalidSteps();
     }
 
+    @JsonIgnore
     public List<String> getNumberedSteps() {
-        DepthScenarioWalker walker = new DepthScenarioWalker();
+        TrackingScenarioWalker walker = new TrackingScenarioWalker();
         ScenarioStepNumberingVisitor stepNumberingVisitor = new ScenarioStepNumberingVisitor(walker);
         for(Scenario step: steps) {
             walker.walk(step, stepNumberingVisitor);
         }
         return stepNumberingVisitor.getNumberedSteps();
+    }
+
+    public ScenarioInfo getCopy(int depth) {
+        List<Scenario> copiedSteps = new ArrayList<>();
+        if(depth > 0) {
+            for(Scenario step: steps) {
+                copiedSteps.add(step.getCopy(depth - 1));
+            }
+        }
+        return new ScenarioInfo(title, systemActor, actors, copiedSteps);
     }
 
     public String getTitle() {

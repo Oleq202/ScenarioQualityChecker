@@ -4,6 +4,9 @@ import pl.put.poznan.checker.logic.ScenarioComposite.Scenario;
 import pl.put.poznan.checker.logic.ScenarioComposite.Subscenario;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioVisitor;
 
+/**
+ * A default scenario strategy - DFS.
+ */
 public class DefaultScenarioWalker extends ScenarioWalker{
     @Override
     public void walk(Scenario node, ScenarioVisitor visitor) {

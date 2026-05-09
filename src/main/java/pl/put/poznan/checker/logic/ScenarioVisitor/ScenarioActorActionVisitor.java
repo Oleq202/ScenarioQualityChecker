@@ -6,6 +6,9 @@ import pl.put.poznan.checker.logic.ScenarioComposite.Subscenario;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Checks for scenario steps which do not start with an actor and saves them.
+ */
 public class ScenarioActorActionVisitor implements ScenarioVisitor {
     private List<String> actors;
     private List<String> invalidSteps;
