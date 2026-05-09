@@ -44,6 +44,16 @@ public class Subscenario extends Scenario{
     }
 
     @Override
+    public void accept(ScenarioVisitor visitor)
+    {
+        visitor.visit(this);
+        for(Scenario step: steps)
+        {
+            step.accept(visitor);
+        }
+    }
+
+    @Override
     public String toString() {
         String desc = (description != null) ? description.substring(0, Math.min(description.length(), 10)) : "null";
         return "Type:" + scenarioType.name() + " Desc:" + desc + " Steps:" + steps;
