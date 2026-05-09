@@ -162,7 +162,7 @@ public class ScenarioInfo {
 
     @JsonIgnore
     public List<String> getInvalidSteps() {
-        List<String> allActors = actors;
+        List<String> allActors = new ArrayList<>(actors);
         allActors.add(systemActor);
         ScenarioActorActionVisitor actorActionVisitor = new ScenarioActorActionVisitor(allActors);
         for(Scenario step: steps) {
