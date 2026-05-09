@@ -1,0 +1,27 @@
+{
+    "title": "Keyword and Step Validation Scenario",
+    "systemActor": "System",
+    "actors": ["User"],
+    "steps": [
+        { "type": "STEP", "description": "User login" },
+        { "type": "STEP", "description": "System displays dashboard" },
+        {
+            "type": "SUBSCENARIO",
+            "scenario_type": "IF",
+            "description": "If valid",
+            "steps": []
+        },
+        {
+            "type": "SUBSCENARIO",
+            "scenario_type": "ELSE",
+            "description": "Else stay",
+            "steps": []
+        },
+        {
+            "type": "SUBSCENARIO",
+            "scenario_type": "FOR_EACH",
+            "description": "Otherwise",
+            "steps": []
+        }
+    ]
+}

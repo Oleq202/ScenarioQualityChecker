@@ -1,0 +1,11 @@
+{
+    "title": "System Actor Test",
+    "systemActor": "System",
+    "actors": ["Librarian"],
+    "steps": [
+        {
+            "type": "STEP",
+            "description": "System displays a confirmation message"
+        }
+    ]
+}

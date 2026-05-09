@@ -1,0 +1,51 @@
+{
+    "title": "Deeply Nested Scenario",
+    "systemActor": "System",
+    "actors": ["User"],
+    "steps": [
+        {
+            "type": "SUBSCENARIO",
+            "scenario_type": "IF",
+            "description": "Level 1 IF",
+            "steps": [
+                {
+                    "type": "SUBSCENARIO",
+                    "scenario_type": "FOR_EACH",
+                    "description": "Level 2 FOR_EACH",
+                    "steps": [
+                        { "type": "STEP", "description": "User action" },
+                        {
+                            "type": "SUBSCENARIO",
+                            "scenario_type": "IF",
+                            "description": "Level 3 IF",
+                            "steps": [
+                                {
+                                    "type": "STEP",
+                                    "description": "System confirms"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "SUBSCENARIO",
+                            "scenario_type": "ELSE",
+                            "description": "Level 3 ELSE",
+                            "steps": [
+                                {
+                                    "type": "STEP",
+                                    "description": "System errors"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "SUBSCENARIO",
+            "scenario_type": "FOR_EACH",
+            "description": "Level 1 Second Loop",
+            "steps": [{ "type": "STEP", "description": "Mid Action" }]
+        },
+        { "type": "STEP", "description": "Final Step" }
+    ]
+}

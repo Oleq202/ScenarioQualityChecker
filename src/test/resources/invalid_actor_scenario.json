@@ -1,0 +1,6 @@
+{
+    "title": "Invalid Actor Test",
+    "systemActor": "System",
+    "actors": ["Librarian"],
+    "steps": [{ "type": "STEP", "description": "Stranger opens door" }]
+}

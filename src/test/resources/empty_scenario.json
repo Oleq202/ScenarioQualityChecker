@@ -1,0 +1,6 @@
+{
+    "title": "Empty Scenario",
+    "systemActor": "System",
+    "actors": ["User"],
+    "steps": []
+}

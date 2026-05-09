@@ -1,0 +1,6 @@
+{
+    "title": "Robustness Test",
+    "systemActor": "System",
+    "actors": ["User"],
+    "steps": [{ "type": "STEP", "description": "" }]
+}

@@ -1,0 +1,6 @@
+{
+    "title": "Case Sensitivity Test",
+    "systemActor": "System",
+    "actors": ["Librarian"],
+    "steps": [{ "type": "STEP", "description": "librarian selects option" }]
+}
