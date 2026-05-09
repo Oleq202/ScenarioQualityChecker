@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.put.poznan.checker.logic.ScenarioInfo;
 
 import java.util.List;
-import java.util.Map;
-
 
 @RestController
 public class ScenarioQualityCheckerController {

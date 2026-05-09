@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class ScenarioStepNumberingVisitor extends ScenarioVisitor {
+public class ScenarioStepNumberingVisitor implements ScenarioVisitor {
     private List<String> numberedSteps;
     private Stack<Integer> numbering;
 

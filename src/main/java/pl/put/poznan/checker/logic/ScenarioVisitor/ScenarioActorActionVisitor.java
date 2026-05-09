@@ -6,7 +6,7 @@ import pl.put.poznan.checker.logic.ScenarioComposite.Subscenario;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScenarioActorActionVisitor extends ScenarioVisitor {
+public class ScenarioActorActionVisitor implements ScenarioVisitor {
     private List<String> actors;
     private List<String> invalidSteps;
 

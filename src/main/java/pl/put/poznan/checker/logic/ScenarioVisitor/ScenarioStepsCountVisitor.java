@@ -6,7 +6,7 @@ import pl.put.poznan.checker.logic.ScenarioComposite.Subscenario;
 /**
  * A visitor, counts number of steps in a scenario.
  */
-public class ScenarioStepsCountVisitor extends ScenarioVisitor {
+public class ScenarioStepsCountVisitor implements ScenarioVisitor {
     private int stepCount = 0;
 
     @Override

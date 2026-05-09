@@ -6,7 +6,7 @@ import pl.put.poznan.checker.logic.ScenarioComposite.Subscenario;
 /**
  * A visitor, counts number of keywords in a scenario.
  */
-public class ScenarioKeywordsCountVisitor extends ScenarioVisitor {
+public class ScenarioKeywordsCountVisitor implements ScenarioVisitor {
     private int ifCount = 0;
     private int elseCount = 0;
     private int forEachCount = 0;
