@@ -6,11 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.put.poznan.checker.logic.ScenarioComposite.Scenario;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioActorActionVisitor;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioKeywordsCountVisitor;
-import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioStepNumberingVisitor;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioStepsCountVisitor;
-import pl.put.poznan.checker.logic.ScenarioWalker.DefaultScenarioWalker;
-import pl.put.poznan.checker.logic.ScenarioWalker.TrackingScenarioWalker;
-import pl.put.poznan.checker.logic.ScenarioWalker.ScenarioWalker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,19 +145,17 @@ public class ScenarioInfo {
     }
 
     public int countSteps() {
-        ScenarioWalker walker = new DefaultScenarioWalker();
         ScenarioStepsCountVisitor countStepsVisitor = new ScenarioStepsCountVisitor();
         for(Scenario step: steps) {
-            walker.walk(step, countStepsVisitor);
+            step.accept(countStepsVisitor);
         }
         return countStepsVisitor.getStepCount();
     }
 
     public int[] countKeywords() {
-        ScenarioWalker walker = new DefaultScenarioWalker();
         ScenarioKeywordsCountVisitor keywordsCountVisitor = new ScenarioKeywordsCountVisitor();
         for(Scenario step: steps) {
-            walker.walk(step, keywordsCountVisitor);
+            step.accept(keywordsCountVisitor);
         }
         return new int[]{keywordsCountVisitor.getIfCount(), keywordsCountVisitor.getElseCount(), keywordsCountVisitor.getForEachCount()};
     }
@@ -170,22 +164,20 @@ public class ScenarioInfo {
     public List<String> getInvalidSteps() {
         List<String> allActors = actors;
         allActors.add(systemActor);
-        ScenarioWalker walker = new DefaultScenarioWalker();
         ScenarioActorActionVisitor actorActionVisitor = new ScenarioActorActionVisitor(allActors);
         for(Scenario step: steps) {
-            walker.walk(step, actorActionVisitor);
+            step.accept(actorActionVisitor);
         }
         return actorActionVisitor.getInvalidSteps();
     }
 
     @JsonIgnore
     public List<String> getNumberedSteps() {
-        TrackingScenarioWalker walker = new TrackingScenarioWalker();
-        ScenarioStepNumberingVisitor stepNumberingVisitor = new ScenarioStepNumberingVisitor(walker);
+        ScenarioStepsNumberer stepsNumberer = new ScenarioStepsNumberer();
         for(Scenario step: steps) {
-            walker.walk(step, stepNumberingVisitor);
+            stepsNumberer.traverse(step);
         }
-        return stepNumberingVisitor.getNumberedSteps();
+        return stepsNumberer.getNumberedSteps();
     }
 
     public ScenarioInfo getCopy(int depth) {
