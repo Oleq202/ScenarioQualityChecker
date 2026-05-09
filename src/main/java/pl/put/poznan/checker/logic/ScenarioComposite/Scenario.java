@@ -25,5 +25,7 @@ public abstract class Scenario {
 
     abstract public void accept(ScenarioVisitor visitor);
 
+    abstract public Scenario getCopy(int depth);
+
     abstract public String toString();
 }

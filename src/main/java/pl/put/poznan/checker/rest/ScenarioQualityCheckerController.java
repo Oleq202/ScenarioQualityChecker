@@ -136,4 +136,36 @@ public class ScenarioQualityCheckerController {
         return response.toString();
     }
 
+    /**
+     * Takes a scenario in JSON form as an input and returns a simplified JSON scenario trimmed to given depth.
+     * @param scenario JSON of a scenario
+     * @param depth trimming depth
+     * @return JSON:
+     * <pre>{@code
+     *     {
+     *         "title": "TestScenario1",
+     *         "systemActor": "System",
+     *         "actors": ["actor1", "actor2"],
+     *         "steps": [
+     *             {
+     *                 "type" : "STEP",
+     *                 "description" : "Step 1"
+     *             },
+     *             {
+     *                 "type": "SUBSCENARIO",
+     *                 "scenario_type" : "IF",
+     *                 "description" : "if",
+     *                 "steps": []
+     *             }
+     *         ]
+     *     }
+     * }</pre>
+     */
+    @PostMapping("/api/get_simplified_scenario")
+    public ScenarioInfo getSimplifiedScenario(@RequestBody ScenarioInfo scenario, @RequestParam int depth) {
+        logger.debug("Title:{} System:{} Actors:{}", scenario.getTitle(), scenario.getSystemActor() ,scenario.getActors());
+
+        return scenario.getCopy(depth);
+    }
+
 }

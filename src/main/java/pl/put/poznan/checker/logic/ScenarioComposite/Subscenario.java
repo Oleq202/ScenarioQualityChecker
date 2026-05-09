@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import pl.put.poznan.checker.logic.ScenarioVisitor.ScenarioVisitor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,6 +49,18 @@ public class Subscenario extends Scenario {
     public void accept(ScenarioVisitor visitor)
     {
         visitor.visit(this);
+    }
+
+    @Override
+    public Subscenario getCopy(int depth) {
+        List<Scenario> copiedSteps = new ArrayList<>();
+        if(depth > 0)
+        {
+            for(Scenario step: steps) {
+                copiedSteps.add(step.getCopy(depth - 1));
+            }
+        }
+        return new Subscenario(scenarioType, description, copiedSteps);
     }
 
     @Override

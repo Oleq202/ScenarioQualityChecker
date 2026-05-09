@@ -21,6 +21,11 @@ public class Step extends Scenario {
     }
 
     @Override
+    public Step getCopy(int depth) {
+        return new Step(description);
+    }
+
+    @Override
     public String toString() {
         String desc = (description != null) ? description.substring(0, Math.min(description.length(), 10)) : "null";
         return "Type:STEP" + " Desc:" + desc;
