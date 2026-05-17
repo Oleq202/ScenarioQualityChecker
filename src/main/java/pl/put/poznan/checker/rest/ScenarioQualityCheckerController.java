@@ -25,17 +25,17 @@ public class ScenarioQualityCheckerController {
      */
     @PostMapping("/api/steps_count")
     public ObjectNode stepsCount(@RequestBody ScenarioInfo scenario) {
+        logger.info("Received request for steps_count. Scenario title: {}", scenario.getTitle());
         logger.debug("Title: {} System: {} Actors: {}", scenario.getTitle(), scenario.getSystemActor(), scenario.getActors());
-        //logger.debug("Steps:{}", scenario.getSteps());
 
         int stepCount = scenario.countSteps();
-        logger.debug("No. of steps: {}", stepCount);
-
+        logger.debug("Number of steps calculated: {}", stepCount);
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode json = mapper.createObjectNode();
         json.put("title",scenario.getTitle());
         json.put("steps_count:", stepCount);
 
+        logger.info("Returning steps_count response successfully.");
         return json;
     }
 
@@ -52,6 +52,7 @@ public class ScenarioQualityCheckerController {
      */
     @PostMapping("/api/keywords_count")
     public ObjectNode keywordsCount(@RequestBody ScenarioInfo scenario) {
+        logger.info("Received request for keywords_count. Scenario title: {}", scenario.getTitle());
         logger.debug("Title: {} System: {} Actors: {}", scenario.getTitle(), scenario.getSystemActor(), scenario.getActors());
 
         int[] counts = scenario.countKeywords();
@@ -65,6 +66,7 @@ public class ScenarioQualityCheckerController {
         json.put("else_count:", counts[1]);
         json.put("for_each_count:", counts[2]);
 
+        logger.info("Returning keywords_count response successfully.");
         return json;
     }
 
@@ -79,17 +81,19 @@ public class ScenarioQualityCheckerController {
      */
     @PostMapping("/api/invalid_steps")
     public ObjectNode getInvalidSteps(@RequestBody ScenarioInfo scenario) {
+        logger.info("Received request for invalid_steps. Scenario title: {}", scenario.getTitle());
         logger.debug("Title: {} System: {} Actors: {}", scenario.getTitle(), scenario.getSystemActor(), scenario.getActors());
 
         List<String> invalidSteps = scenario.getInvalidSteps();
 
-        logger.debug("Invalid steps: {}", invalidSteps);
+        logger.debug("Invalid steps found: {}", invalidSteps);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode json = mapper.createObjectNode();
         json.put("title",scenario.getTitle());
         json.putPOJO("invalid_steps", invalidSteps);
 
+        logger.info("Returning invalid_steps response successfully.");
         return json;
     }
 
@@ -118,11 +122,12 @@ public class ScenarioQualityCheckerController {
      */
     @PostMapping("/api/get_numbered_steps")
     public String getNumberedSteps(@RequestBody ScenarioInfo scenario) {
+        logger.info("Received request for get_numbered_steps. Scenario title: {}", scenario.getTitle());
         logger.debug("Title: {} System: {} Actors: {}", scenario.getTitle(), scenario.getSystemActor(), scenario.getActors());
 
         List<String> numberedSteps = scenario.getNumberedSteps();
 
-        logger.debug("Numbered steps: {}", numberedSteps);
+        logger.debug("Numbered steps list size: {}", numberedSteps.size());
 
         StringJoiner response = new StringJoiner("\n");
         response.add("Title: " + scenario.getTitle());
@@ -133,6 +138,7 @@ public class ScenarioQualityCheckerController {
             response.add(line);
         }
 
+        logger.info("Returning numbered_steps response successfully.");
         return response.toString();
     }
 
@@ -163,9 +169,13 @@ public class ScenarioQualityCheckerController {
      */
     @PostMapping("/api/get_simplified_scenario")
     public ScenarioInfo getSimplifiedScenario(@RequestBody ScenarioInfo scenario, @RequestParam int depth) {
+        logger.info("Received request for get_simplified_scenario with depth: {}. Scenario title: {}", depth, scenario.getTitle());
         logger.debug("Title: {} System: {} Actors: {}", scenario.getTitle(), scenario.getSystemActor(), scenario.getActors());
 
-        return scenario.getCopy(depth);
+        ScenarioInfo simplified = scenario.getCopy(depth);
+
+        logger.info("Returning simplified_scenario response successfully.");
+        return simplified;
     }
 
 }
