@@ -25,11 +25,11 @@ public class ScenarioQualityCheckerController {
      */
     @PostMapping("/api/steps_count")
     public ObjectNode stepsCount(@RequestBody ScenarioInfo scenario) {
-        logger.debug("Title:{} System:{} Actors:{}", scenario.getTitle(), scenario.getSystemActor() ,scenario.getActors());
+        logger.debug("Title: {} System: {} Actors: {}", scenario.getTitle(), scenario.getSystemActor(), scenario.getActors());
         //logger.debug("Steps:{}", scenario.getSteps());
 
         int stepCount = scenario.countSteps();
-        logger.debug("No. of steps:{}", stepCount);
+        logger.debug("No. of steps: {}", stepCount);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode json = mapper.createObjectNode();
@@ -52,11 +52,11 @@ public class ScenarioQualityCheckerController {
      */
     @PostMapping("/api/keywords_count")
     public ObjectNode keywordsCount(@RequestBody ScenarioInfo scenario) {
-        logger.debug("Title:{} System:{} Actors:{}", scenario.getTitle(), scenario.getSystemActor() ,scenario.getActors());
+        logger.debug("Title: {} System: {} Actors: {}", scenario.getTitle(), scenario.getSystemActor(), scenario.getActors());
 
         int[] counts = scenario.countKeywords();
 
-        logger.debug("if_count:{} else_count:{} for_each_count:{}", counts[0], counts[1], counts[2]);
+        logger.debug("if_count: {} else_count: {} for_each_count: {}", counts[0], counts[1], counts[2]);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode json = mapper.createObjectNode();
@@ -79,11 +79,11 @@ public class ScenarioQualityCheckerController {
      */
     @PostMapping("/api/invalid_steps")
     public ObjectNode getInvalidSteps(@RequestBody ScenarioInfo scenario) {
-        logger.debug("Title:{} System:{} Actors:{}", scenario.getTitle(), scenario.getSystemActor() ,scenario.getActors());
+        logger.debug("Title: {} System: {} Actors: {}", scenario.getTitle(), scenario.getSystemActor(), scenario.getActors());
 
         List<String> invalidSteps = scenario.getInvalidSteps();
 
-        logger.debug("Invalid steps:{}", invalidSteps);
+        logger.debug("Invalid steps: {}", invalidSteps);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode json = mapper.createObjectNode();
@@ -118,11 +118,11 @@ public class ScenarioQualityCheckerController {
      */
     @PostMapping("/api/get_numbered_steps")
     public String getNumberedSteps(@RequestBody ScenarioInfo scenario) {
-        logger.debug("Title:{} System:{} Actors:{}", scenario.getTitle(), scenario.getSystemActor() ,scenario.getActors());
+        logger.debug("Title: {} System: {} Actors: {}", scenario.getTitle(), scenario.getSystemActor(), scenario.getActors());
 
         List<String> numberedSteps = scenario.getNumberedSteps();
 
-        logger.debug("Numbered steps:{}", numberedSteps);
+        logger.debug("Numbered steps: {}", numberedSteps);
 
         StringJoiner response = new StringJoiner("\n");
         response.add("Title: " + scenario.getTitle());
@@ -163,7 +163,7 @@ public class ScenarioQualityCheckerController {
      */
     @PostMapping("/api/get_simplified_scenario")
     public ScenarioInfo getSimplifiedScenario(@RequestBody ScenarioInfo scenario, @RequestParam int depth) {
-        logger.debug("Title:{} System:{} Actors:{}", scenario.getTitle(), scenario.getSystemActor() ,scenario.getActors());
+        logger.debug("Title: {} System: {} Actors: {}", scenario.getTitle(), scenario.getSystemActor(), scenario.getActors());
 
         return scenario.getCopy(depth);
     }
