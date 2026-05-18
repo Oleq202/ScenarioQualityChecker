@@ -9,9 +9,18 @@ import pl.put.poznan.checker.logic.ScenarioInfo;
 import java.util.List;
 import java.util.StringJoiner;
 
+/**
+ * REST Controller responsible for exposing the Scenario Quality Checker API endpoints.
+ * It receives scenario data in JSON format, processes it using the underlying logic models,
+ * and returns calculated metrics (like step counts, keyword counts) or modified scenario structures.
+ */
 @RestController
 public class ScenarioQualityCheckerController {
 
+    /**
+     * Logger instance used for recording operational events, API request details,
+     * and debugging information within this controller.
+     */
     private static final Logger logger = LoggerFactory.getLogger(ScenarioQualityCheckerController.class);
 
     /**
@@ -19,8 +28,8 @@ public class ScenarioQualityCheckerController {
      * @param scenario JSON of a scenario
      * @return JSON:
      * <pre>{@code {
-     *  "title": "ScenarioTitle",
-     *  "steps_count": "No. of steps"
+     *     "title": "ScenarioTitle",
+     *     "steps_count": "No. of steps"
      * }} </pre>
      */
     @PostMapping("/api/steps_count")
@@ -102,22 +111,22 @@ public class ScenarioQualityCheckerController {
      * @param scenario JSON of a scenario
      * @return TXT:
      * <pre>{@code
-     *      Title: Book addition
-     *      Actors: Librarian
-     *      System actor: System
-     *      1. Librarian selects options to add a new book item
-     *      2. A form is displayed.
-     *      3. Librarian provides the details of the book.
-     *      4. IF: Librarian wishes to add copies of the book
-     *      4.1. Librarian chooses to define instances
-     *      4.2. System presents defined instances
-     *      4.3. FOR_EACH: instance:
-     *      4.3.1. Librarian chooses to add an instance
-     *      4.3.2. System prompts to enter the instance details
-     *      4.3.3. Librarian enters the instance details and confirms them.
-     *      4.3.4. System informs about the correct addition of an instance and presents the updated list of instances.
-     *      5. Librarian confirms book addition.
-     *      6. System informs about the correct addition of the book.
+     * Title: Book addition
+     * Actors: Librarian
+     * System actor: System
+     * 1. Librarian selects options to add a new book item
+     * 2. A form is displayed.
+     * 3. Librarian provides the details of the book.
+     * 4. IF: Librarian wishes to add copies of the book
+     * 4.1. Librarian chooses to define instances
+     * 4.2. System presents defined instances
+     * 4.3. FOR_EACH: instance:
+     * 4.3.1. Librarian chooses to add an instance
+     * 4.3.2. System prompts to enter the instance details
+     * 4.3.3. Librarian enters the instance details and confirms them.
+     * 4.3.4. System informs about the correct addition of an instance and presents the updated list of instances.
+     * 5. Librarian confirms book addition.
+     * 6. System informs about the correct addition of the book.
      * }</pre>
      */
     @PostMapping("/api/get_numbered_steps")
@@ -148,23 +157,23 @@ public class ScenarioQualityCheckerController {
      * @param depth trimming depth
      * @return JSON:
      * <pre>{@code
-     *     {
-     *         "title": "TestScenario1",
-     *         "systemActor": "System",
-     *         "actors": ["actor1", "actor2"],
-     *         "steps": [
-     *             {
-     *                 "type" : "STEP",
-     *                 "description" : "Step 1"
-     *             },
-     *             {
-     *                 "type": "SUBSCENARIO",
-     *                 "scenario_type" : "IF",
-     *                 "description" : "if",
-     *                 "steps": []
-     *             }
-     *         ]
-     *     }
+     * {
+     *     "title": "TestScenario1",
+     *     "systemActor": "System",
+     *     "actors": ["actor1", "actor2"],
+     *     "steps": [
+     *         {
+     *             "type" : "STEP",
+     *             "description" : "Step 1"
+     *         },
+     *         {
+     *             "type": "SUBSCENARIO",
+     *             "scenario_type" : "IF",
+     *             "description" : "if",
+     *             "steps": []
+     *         }
+     *     ]
+     * }
      * }</pre>
      */
     @PostMapping("/api/get_simplified_scenario")
